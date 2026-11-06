@@ -18,3 +18,5 @@ On a separate machine (Python 3.13.5, cryptography 43.0.0 vs shipped 3.12.14 / 5
 - A fresh `run.py` + `verify.py` exited 0; substantive evidence files (`structural.json`, `mutations.json`, `single_reviews.json`, `dual_reviews.json`, `canonical_probes.json`) were **byte-identical** to the shipped set. Only `context.json` differed (runtime environment metadata), which cascades to RECEIPT / RESULTS / TABLE hashes.
 - `tools/tamper_check.py` detected 5/5 deliberate corruptions.
 
+## How to check without damaging shipped evidence
+`verify.py` writes `RESULTS.json` (and related outputs) **into the folder it is asked to check**. If the check fails, it can overwrite a shipped `RESULTS.json` with a `CHECK_FAILED` record. **Always run `verify.py` on a copy of `evidence/`** (or another copy of the run directory), never on the only retained shipped folder.
